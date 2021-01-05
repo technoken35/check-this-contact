@@ -22,7 +22,7 @@ function App() {
   });
   const validatePhone = (event) => {
     const gPhoneUtil = gLibPhoneNumber.PhoneNumberUtil.getInstance();
-    const phoneRegex = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-10]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
+    const phoneRegex = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-10]\d?)\)?)?[-. \\/]?)?((?:\(?\d{1,}\)?[-. \\/]?){0,})(?:[-. \\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
     const input = event.target.value;
 
     if (phoneRegex.test(input) && input.length >= 10) {
