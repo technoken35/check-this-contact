@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SearchBar({ onChange, placeHolder, validated, value }) {
+const SearchBar = ({ onChange, placeHolder, validated, value }) => {
   const renderButton = () => {
     if (validated) {
       return <button className="ui button primary">Validate</button>;
@@ -24,6 +24,6 @@ function SearchBar({ onChange, placeHolder, validated, value }) {
       {renderButton()}
     </form>
   );
-}
+};
 
 export default SearchBar;

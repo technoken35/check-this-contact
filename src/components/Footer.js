@@ -1,14 +1,25 @@
 import React from 'react';
+import verifiedIcon from '../assets/verified_green.svg';
 
-function Footer() {
+const Footer = () => {
   return (
     <footer>
       <div className="ui three column stackable grid">
-        <div className="column">col 1</div>
-        <div className="column">col 2</div>
-        <div className="column">col 3</div>
+        <div className="column text-center">
+          <img
+            style={{ width: '5rem', height: 'auto' }}
+            src={verifiedIcon}
+            alt="brackets"
+          ></img>
+        </div>
+        <div className="column text-center">
+          © {new Date().getFullYear()} Check This Contact
+        </div>
+        <div className="column text-center">
+          <a href="header">Back to top</a>
+        </div>
       </div>
     </footer>
   );
-}
+};
 export default Footer;

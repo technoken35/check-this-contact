@@ -1,8 +1,7 @@
 import React from 'react';
-import brackets from '../assets/brackets.png';
 import verified from '../assets/verified_green.svg';
 
-function Header() {
+const Header = () => {
   return (
     <header>
       <div className="ui grey secondary pointing menu">
@@ -34,6 +33,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

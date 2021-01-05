@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import Card from '../components/Card';
 import ListItem from '../components/ListItem';
 
-function App() {
+const App = () => {
   const [state, setState] = useState({
     phoneInput: '',
     phoneResults: [],
@@ -22,7 +22,7 @@ function App() {
   });
   const validatePhone = (event) => {
     const gPhoneUtil = gLibPhoneNumber.PhoneNumberUtil.getInstance();
-    const phoneRegex = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-10]\d?)\)?)?[-. \\/]?)?((?:\(?\d{1,}\)?[-. \\/]?){0,})(?:[-. \\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
+    const phoneRegex = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-10]\d?)\)?)?[-. \\/]?)?((?:\(?\d{1,}\)?[-. \\/]?){0,})(?:[-. \\/]?(?:#|ext\.?|extension|x)[-. \\/]?(\d+))?$/i;
     const input = event.target.value;
 
     if (phoneRegex.test(input) && input.length >= 10) {
@@ -59,7 +59,7 @@ function App() {
       <div className="ui container">
         <h2 className="text-center">Try out the API below</h2>
         <div
-          style={{ margin: '2rem 0rem 5rem 0rem' }}
+          style={{ margin: '2rem 0rem 2rem 0rem' }}
           className="ui container stackable two column grid"
         >
           <div className="column">
@@ -158,6 +158,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

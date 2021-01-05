@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card({ header, icon, description }) {
+const Card = ({ header, icon, description }) => {
   return (
     <div class="transparent-card">
       <div class="content">
@@ -12,6 +12,6 @@ function Card({ header, icon, description }) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

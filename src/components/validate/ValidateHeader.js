@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ValidateHeader({ header, icon, content }) {
+const ValidateHeader = ({ header, icon, content }) => {
   return (
     <h4 style={{ width: '100%' }} className="ui icon header">
       <i className={`icon ${icon}`}></i>
@@ -10,6 +10,6 @@ function ValidateHeader({ header, icon, content }) {
       </div>
     </h4>
   );
-}
+};
 
 export default ValidateHeader;
