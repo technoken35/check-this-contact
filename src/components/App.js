@@ -3,54 +3,25 @@ import SearchBar from './SearchBar';
 import ShowValidate from './validate/ValidateResults';
 import PageHeader from './Header';
 import ValidateHeader from './validate/ValidateHeader';
-import gLibPhoneNumber from 'google-libphonenumber';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import ListItem from '../components/ListItem';
 
 const App = () => {
   const [state, setState] = useState({
-    phoneInput: '',
+    phone: '',
     phoneResults: [],
-    phoneValidInput: null,
-    phoneIsValid: null,
-
-    emailInput: '',
+    email: '',
     emailResults: [],
-    emailValidInput: null,
-    isValid: null,
+    countryCodes: [],
+    countrySelected: '',
   });
-  const validatePhone = (event) => {
-    const gPhoneUtil = gLibPhoneNumber.PhoneNumberUtil.getInstance();
-    const phoneRegex = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-10]\d?)\)?)?[-. \\/]?)?((?:\(?\d{1,}\)?[-. \\/]?){0,})(?:[-. \\/]?(?:#|ext\.?|extension|x)[-. \\/]?(\d+))?$/i;
-    const input = event.target.value;
 
-    if (phoneRegex.test(input) && input.length >= 10) {
-      const number = gPhoneUtil.parseAndKeepRawInput(input, 'US');
-
-      setState({ ...state, phoneValidInput: true });
-      console.log(
-        gPhoneUtil.isValidNumber(number),
-        gPhoneUtil.getNumberType(number),
-        'type',
-        number.getCountryCode(),
-        gPhoneUtil.formatInOriginalFormat(number, 'US')
-        // (608) 312-0994
-      );
-    } else {
-      setState({ ...state, phoneValidInput: false });
-    }
-  };
-
-  const validateEmail = (event) => {
-    const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const input = event.target.value;
-
-    if (!emailFormat.test(input)) {
-      setState({ ...state, emailValidInput: false });
-    } else {
-      setState({ ...state, emailValidInput: true, emailInput: input });
-    }
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [`${event.target.name}`]: event.target.value,
+    });
   };
 
   return (
@@ -71,7 +42,8 @@ const App = () => {
             <SearchBar
               validated={state.phoneValidInput}
               placeHolder={'Enter Phone Number 6083120995'}
-              onChange={validatePhone}
+              name="phone"
+              onChange={handleChange}
             />
             <ShowValidate />
           </div>
@@ -85,8 +57,9 @@ const App = () => {
             <SearchBar
               validated={state.emailValidInput}
               placeHolder={'Enter Email'}
-              onChange={validateEmail}
+              onChange={handleChange}
               value={state.emailInput}
+              name="email"
             />
             <ShowValidate />
           </div>
@@ -120,18 +93,23 @@ const App = () => {
       <div className="ui container" id="documentation">
         <h3 className="text-center">Documentation</h3>
         <h4 className="ui grey header text-center">
-          Our API offers two simple routes...Yep it's that easy.
+          Our API offers three simple routes...Yep it's that easy.
         </h4>
         <div class="ui relaxed divided list">
           <ListItem
-            icon="mail"
-            header="POST: https://api.checkthiscontact.com/email"
-            description="Email Validation Route"
+            icon="globe"
+            header="GET: https://checkthiscontact.com/api/supported-regions"
+            description="Supported Regions"
           />
           <ListItem
             icon="phone"
-            header="POST: https://api.checkthiscontact.com/phone"
+            header="GET: https://checkthiscontact.com/api/phone?phone=:number&selected-region=:region"
             description="Phone Validation Route"
+          />
+          <ListItem
+            icon="mail"
+            header="GET: https://checkthiscontact.com/api/email?email=:email"
+            description="Email Validation Route"
           />
         </div>
       </div>

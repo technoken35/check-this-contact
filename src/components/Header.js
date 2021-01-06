@@ -3,7 +3,7 @@ import verified from '../assets/verified_green.svg';
 
 const Header = () => {
   return (
-    <header>
+    <header id="header">
       <div className="ui grey secondary pointing menu">
         <h4 className=" item " href="#">
           <i className="check icon"></i> Check This Contact

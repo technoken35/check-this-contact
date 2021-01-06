@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBar = ({ onChange, placeHolder, validated, value }) => {
+const SearchBar = ({ onChange, placeHolder, validated, value, name }) => {
   const renderButton = () => {
     if (validated) {
       return <button className="ui button primary">Validate</button>;
@@ -17,6 +17,7 @@ const SearchBar = ({ onChange, placeHolder, validated, value }) => {
             onChange={onChange}
             type="text"
             placeholder={placeHolder}
+            name={name}
           />
           <i class="search icon"></i>
         </div>

@@ -16,7 +16,7 @@ const Footer = () => {
           © {new Date().getFullYear()} Check This Contact
         </div>
         <div className="column text-center">
-          <a href="header">Back to top</a>
+          <a href="#header">Back to top</a>
         </div>
       </div>
     </footer>
