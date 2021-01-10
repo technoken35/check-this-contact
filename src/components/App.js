@@ -20,7 +20,7 @@ const App = () => {
     countrySelected: 'US',
   });
 
-  const fetchSupportedRegions = async () => {
+  /* const fetchSupportedRegions = async () => {
     const res = await validate.get('supported-regions');
     setState({
       ...state,
@@ -28,7 +28,7 @@ const App = () => {
     });
 
     console.log(res.data);
-  };
+  }; */
 
   useEffect(() => {
     console.log('component mounted');
