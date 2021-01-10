@@ -1,12 +1,13 @@
 import React from 'react';
 
-const ListItem = ({ icon, header, description }) => {
+const ListItem = ({ header, description }) => {
   return (
-    <div className="item">
-      <i class={`large ${icon} middle aligned icon`}></i>
-      <div className="content right aligned">
+    <div className="item custom-item">
+      <div className="content">
         <div className="header">{header}</div>
-        <div className="description">{description}</div>
+        <div style={{ overflow: 'hidden' }} className="description">
+          {description}
+        </div>
       </div>
     </div>
   );

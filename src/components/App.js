@@ -177,7 +177,11 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="ui container" id="documentation">
+      <div
+        style={{ padding: '1rem' }}
+        className="ui container"
+        id="documentation"
+      >
         <h3 className="text-center">Documentation</h3>
         <h4 className="ui grey header text-center">
           Our API offers three simple routes...Yep it's that easy. (These are
@@ -186,18 +190,18 @@ const App = () => {
         <div className="ui relaxed divided list">
           <ListItem
             icon="globe"
-            header={`GET: ${baseURL}supported-regions`}
-            description="Supported Regions"
+            header="Supported Regions"
+            description={`GET: ${baseURL}supported-regions`}
           />
           <ListItem
             icon="phone"
-            header={`GET: ${baseURL}phone?number=:number&selected-region=:region`}
-            description="Phone Validation Route"
+            header="Phone Validation Route"
+            description={`GET: ${baseURL}phone?number=:number&selected-region=:region`}
           />
           <ListItem
             icon="mail"
-            header={`GET: ${baseURL}email?email=:email`}
-            description="Email Validation Route"
+            header="Email Validation Route"
+            description={`GET: ${baseURL}email?email=:email`}
           />
         </div>
       </div>

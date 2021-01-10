@@ -4,7 +4,7 @@
 }
 
 .container.ui {
-  width: 80vw;
+  width: 100vw;
 }
 
 .header-content {
@@ -35,6 +35,7 @@ header {
 .gradient {
   background: var(--main-bg-color);
   height: 100%;
+  width: 100vw;
   padding: 5rem;
   border-top-left-radius: 50% 20%;
   border-top-right-radius: 50% 20%;
