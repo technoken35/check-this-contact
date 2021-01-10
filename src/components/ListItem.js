@@ -11,5 +11,4 @@ const ListItem = ({ icon, header, description }) => {
     </div>
   );
 };
-
 export default ListItem;

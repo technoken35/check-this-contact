@@ -1,21 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
-import ShowValidate from './validate/ValidateResults';
+import ValidateResults from './validate/ValidateResults';
 import PageHeader from './Header';
 import ValidateHeader from './validate/ValidateHeader';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import ListItem from '../components/ListItem';
+import validate from '../api/validate';
+import { baseURL } from '../api/config';
 
 const App = () => {
   const [state, setState] = useState({
+    loading: false,
     phone: '',
-    phoneResults: [],
+    phoneResults: {},
     email: '',
-    emailResults: [],
+    emailResults: {},
     countryCodes: [],
-    countrySelected: '',
+    countrySelected: 'US',
   });
+
+  const fetchSupportedRegions = async () => {
+    const res = await validate.get('supported-regions');
+    setState({
+      ...state,
+      countryCodes: res.data,
+    });
+
+    console.log(res.data);
+  };
+
+  useEffect(() => {
+    console.log('component mounted');
+    //fetchSupportedRegions();
+  }, []);
 
   const handleChange = (event) => {
     setState({
@@ -24,13 +42,74 @@ const App = () => {
     });
   };
 
+  const validateAll = async () => {
+    setState({ ...state, loading: true });
+    const emailRes = await validate.get(`email?email=${state.email}`);
+
+    const phoneRes = await validate.get(
+      `phone?number=${state.phone}&selected-region=us`
+    );
+
+    setState({
+      ...state,
+      phoneResults: phoneRes.data,
+      emailResults: emailRes.data,
+      loading: false,
+    });
+
+    console.log(state, phoneRes);
+  };
+
+  const validateEmail = async (event) => {
+    event.preventDefault();
+    setState({ ...state, loading: true });
+
+    if (state.phone && state.email) {
+      validateAll();
+    } else {
+      const res = await validate.get(`email?email=${state.email}`);
+      console.log('validate email');
+      setState({
+        ...state,
+        emailResults: res.data,
+        loading: false,
+      });
+    }
+  };
+
+  const validatePhone = async (event) => {
+    event.preventDefault();
+    setState({ ...state, loading: true });
+
+    if (state.phone && state.email) {
+      validateAll();
+    } else {
+      console.log('Validate Phone');
+      const res = await validate.get(
+        `phone?number=${state.phone}&selected-region=us`
+      );
+
+      setState({
+        ...state,
+        phoneResults: res.data,
+        loading: false,
+      });
+
+      console.log(state, res.data);
+    }
+  };
+
+  const Spinner = () => {
+    return <div class="ui active centered inline loader"></div>;
+  };
+
   return (
     <>
       <PageHeader />
       <div className="ui container">
         <h2 className="text-center">Try out the API below</h2>
         <div
-          style={{ margin: '2rem 0rem 2rem 0rem' }}
+          style={{ margin: '2rem 0rem 2rem 0rem', padding: '1rem' }}
           className="ui container stackable two column grid"
         >
           <div className="column">
@@ -40,12 +119,16 @@ const App = () => {
               content="Validate any phone number instantly by searching below."
             />
             <SearchBar
-              validated={state.phoneValidInput}
               placeHolder={'Enter Phone Number 6083120995'}
               name="phone"
               onChange={handleChange}
+              onSubmit={validatePhone}
             />
-            <ShowValidate />
+            {state.loading ? (
+              <Spinner />
+            ) : (
+              <ValidateResults data={state.phoneResults} />
+            )}
           </div>
           <div className="column">
             <ValidateHeader
@@ -55,13 +138,17 @@ const App = () => {
             />
 
             <SearchBar
-              validated={state.emailValidInput}
               placeHolder={'Enter Email'}
               onChange={handleChange}
-              value={state.emailInput}
+              value={state.email}
+              onSubmit={validateEmail}
               name="email"
             />
-            <ShowValidate />
+            {state.loading ? (
+              <Spinner />
+            ) : (
+              <ValidateResults data={state.emailResults} />
+            )}
           </div>
         </div>
       </div>
@@ -93,27 +180,28 @@ const App = () => {
       <div className="ui container" id="documentation">
         <h3 className="text-center">Documentation</h3>
         <h4 className="ui grey header text-center">
-          Our API offers three simple routes...Yep it's that easy.
+          Our API offers three simple routes...Yep it's that easy. (These are
+          temporary routes we will be using a uniform domain soon)
         </h4>
-        <div class="ui relaxed divided list">
+        <div className="ui relaxed divided list">
           <ListItem
             icon="globe"
-            header="GET: https://checkthiscontact.com/api/supported-regions"
+            header={`GET: ${baseURL}supported-regions`}
             description="Supported Regions"
           />
           <ListItem
             icon="phone"
-            header="GET: https://checkthiscontact.com/api/phone?phone=:number&selected-region=:region"
+            header={`GET: ${baseURL}phone?number=:number&selected-region=:region`}
             description="Phone Validation Route"
           />
           <ListItem
             icon="mail"
-            header="GET: https://checkthiscontact.com/api/email?email=:email"
+            header={`GET: ${baseURL}email?email=:email`}
             description="Email Validation Route"
           />
         </div>
       </div>
-      <div class="ui divider"></div>
+      <div className="ui divider"></div>
 
       <div className="subscriptions text-center">
         <h3 className="ui icon header">

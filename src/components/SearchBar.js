@@ -1,19 +1,12 @@
 import React from 'react';
 
-const SearchBar = ({ onChange, placeHolder, validated, value, name }) => {
-  const renderButton = () => {
-    if (validated) {
-      return <button className="ui button primary">Validate</button>;
-    }
-
-    return null;
-  };
+const SearchBar = ({ onChange, placeHolder, value, name, onSubmit }) => {
   return (
-    <form className="ui form">
+    <form onSubmit={onSubmit} className="ui form">
       <div className="field">
         <div class="ui icon input">
           <input
-            //value={value}
+            value={value}
             onChange={onChange}
             type="text"
             placeholder={placeHolder}
@@ -22,7 +15,7 @@ const SearchBar = ({ onChange, placeHolder, validated, value, name }) => {
           <i class="search icon"></i>
         </div>
       </div>
-      {renderButton()}
+      <button className="ui button primary">Validate</button>
     </form>
   );
 };
